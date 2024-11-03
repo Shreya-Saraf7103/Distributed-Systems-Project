@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+service FileSyncService {
+  rpc SyncFile(FileRequest) returns (FileResponse);
+  rpc SyncDirectory(DirectoryRequest) returns (DirectoryResponse);
+  rpc DeleteFile(DeleteRequest) returns (DeleteResponse);
+}
+
+message FileRequest {
+  string file_path = 1;
+  bytes file_content = 2;
+  int64 last_modified = 3;
+}
+
+message FileResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message DirectoryRequest {
+  string directory_path = 1;
+}
+
+message DirectoryResponse {
+  bool success = 1;
+  repeated FileResponse files = 2;
+}
+
+message DeleteRequest {
+    string file_path = 1; 
+}
+
+message DeleteResponse {
+    bool success = 1; 
+    string message = 2; 
+}
+
